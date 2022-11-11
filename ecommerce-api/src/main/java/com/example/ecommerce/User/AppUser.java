@@ -5,6 +5,7 @@ import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class AppUser {
     private String password;
     @Column
     private String email;
+    @Transient
+    private Integer age;
 
     public AppUser() {
     }
@@ -32,6 +35,14 @@ public class AppUser {
         this.password = password;
 //        this.productList = new ArrayList<>();
         this.email = email;
+    }
+
+    public Integer getAge() {
+        return Period.between(this.dob,LocalDate.now()).getYears();
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Long getId() {
