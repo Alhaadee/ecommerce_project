@@ -97,8 +97,8 @@ public class UserService {
     }
 
     private boolean validatePassword(String password) {
-        // one lowercase , one uppercase, one digit, no spaces, 4 to 8 length
-        Pattern p = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{4,8}$");
+        // one lowercase , one uppercase, one digit, no spaces, 4 to 20 length
+        Pattern p = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{4,20}$");
         Matcher m = p.matcher(password);
         return m.matches();
     }
