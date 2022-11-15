@@ -1,6 +1,8 @@
 package com.example.ecommerce.User;
 
+import com.example.ecommerce.CustomExceptions.InvalidEmailException;
 import com.example.ecommerce.CustomExceptions.InvalidPasswordException;
+import com.example.ecommerce.CustomExceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class UserService {
 
 
     private final UserRepository userRepository;
+
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -27,81 +30,80 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public AppUser addUser(AppUser user) throws InvalidPasswordException {
+    public AppUser addUser(AppUser user) throws InvalidPasswordException, InvalidEmailException {
         Optional<AppUser> userOptional = userRepository
                 .findAppUserByEmail(user.getEmail());
 
-        if (userOptional.isPresent()){
-            throw  new IllegalStateException("This email is already in use.");
+        if (userOptional.isPresent()) {
+            throw new InvalidEmailException("This email is already in use.");
         }
-        if(user.getEmail() != null && user.getEmail().length() > 0){
-            if(validatePassword(user.getPassword())){
+        if (user.getEmail() != null && user.getEmail().length() > 0) {
+            if (validatePassword(user.getPassword())) {
                 return userRepository.save(user);
             } else {
                 throw new InvalidPasswordException("The password must be between 4-8 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");
             }
 
-        } else{
-            throw  new IllegalStateException("The email must not be empty.");
+        } else {
+            throw new InvalidEmailException("The email must not be empty.");
         }
 
 
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id) throws UserNotFoundException {
         boolean exists = userRepository.existsById(id);
-        if(!exists){
-            throw new IllegalStateException(String.format("User with ID: %s, does not exist",id));
-        }
-        else{
+        if (!exists) {
+            throw new UserNotFoundException(String.format("User with ID: %s, does not exist", id));
+        } else {
             userRepository.deleteById(id);
         }
 
     }
 
-    public AppUser getUserById(Long id) {
+    public AppUser getUserById(Long id) throws UserNotFoundException {
         return userRepository.findById(id)
-                .orElseThrow(()->new IllegalStateException(String.format("User with ID: %s, does not exist",id)));
+                .orElseThrow(() -> new UserNotFoundException(String.format("User with ID: %s, does not exist", id)));
     }
 
 
     @Transactional
-    public AppUser updateStudent(Long id, String name, String email, String password, String dob) {
+    public AppUser updateStudent(Long id, String name, String email, String password, String dob) throws InvalidPasswordException, UserNotFoundException, InvalidEmailException {
         AppUser targetUser = getUserById(id);
-        if(name != null && name.length() > 0 && !targetUser.getName().equals(name)){
+        if (name != null && name.length() > 0 && !targetUser.getName().equals(name)) {
             targetUser.setName(name);
         }
-        if(email != null &&
+        if (email != null &&
                 email.length() > 0 &&
-                !targetUser.getEmail().equals(email)){
+                !targetUser.getEmail().equals(email)) {
             Optional<AppUser> appUserOptional = userRepository.findAppUserByEmail(email);
-            if(appUserOptional.isPresent()){
-                throw new IllegalStateException("email taken");
+            if (appUserOptional.isPresent()) {
+                throw new InvalidEmailException("email taken");
             }
             targetUser.setEmail(email);
         }
-        if(password != null &&
+        if (password != null &&
                 validatePassword(password) &&
-                !targetUser.getPassword().equals(password)){
+                !targetUser.getPassword().equals(password)) {
             targetUser.setPassword(password);
-        } else{
-            throw new IllegalStateException("Password is invalid.");
+        } else {
+            throw new InvalidPasswordException("Password is invalid.");
         }
-        if(dob != null && !targetUser.getDob().toString().equals(dob)){
+        if (dob != null && !targetUser.getDob().toString().equals(dob)) {
             LocalDate parsedDob = LocalDate.parse(dob);
             targetUser.setDob(parsedDob);
         }
         return userRepository.save(targetUser);
     }
 
-    private boolean validatePassword(String password){
+    private boolean validatePassword(String password) {
         // one lowercase , one uppercase, one digit, no spaces, 4 to 8 length
         Pattern p = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{4,8}$");
         Matcher m = p.matcher(password);
         return m.matches();
     }
 
-    // Todo: add custom exceptions, add many to many relationship after
+    // Todo: add many to many relationship after
 
 
 }
