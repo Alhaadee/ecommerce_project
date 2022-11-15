@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity (name = "Users")
 public class AppUser {
@@ -102,5 +103,18 @@ public class AppUser {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser user = (AppUser) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dob, user.dob) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(age, user.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, dob, password, email, age);
     }
 }
