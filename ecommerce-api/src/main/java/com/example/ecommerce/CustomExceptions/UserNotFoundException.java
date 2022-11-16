@@ -1,6 +1,6 @@
 package com.example.ecommerce.CustomExceptions;
 
-public class UserNotFoundException extends Exception{
+public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException() {
     }
 

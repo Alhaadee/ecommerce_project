@@ -30,28 +30,27 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public AppUser addUser(AppUser user) throws InvalidPasswordException, InvalidEmailException {
+    public AppUser addUser(AppUser user) {
         Optional<AppUser> userOptional = userRepository
                 .findAppUserByEmail(user.getEmail());
 
         if (userOptional.isPresent()) {
             throw new InvalidEmailException("This email is already in use.");
         }
-        if (user.getEmail() != null && user.getEmail().length() > 0) {
-            if (validatePassword(user.getPassword())) {
-                return userRepository.save(user);
-            } else {
-                throw new InvalidPasswordException("The password must be between 4-8 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");
-            }
-
-        } else {
+        if (user.getEmail() == null && user.getEmail().length() == 0) {
             throw new InvalidEmailException("The email must not be empty.");
+        }
+
+        if (validatePassword(user.getPassword())) {
+            return userRepository.save(user);
+        } else {
+            throw new InvalidPasswordException("The password must be between 4-8 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");
         }
 
 
     }
 
-    public void deleteUser(Long id) throws UserNotFoundException {
+    public void deleteUser(Long id){
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new UserNotFoundException(String.format("User with ID: %s, does not exist", id));
@@ -61,14 +60,14 @@ public class UserService {
 
     }
 
-    public AppUser getUserById(Long id) throws UserNotFoundException {
+    public AppUser getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(String.format("User with ID: %s, does not exist", id)));
     }
 
 
     @Transactional
-    public AppUser updateStudent(Long id, String name, String email, String password, String dob) throws InvalidPasswordException, UserNotFoundException, InvalidEmailException {
+    public AppUser updateStudent(Long id, String name, String email, String password, String dob){
         AppUser targetUser = getUserById(id);
         if (name != null && name.length() > 0 && !targetUser.getName().equals(name)) {
             targetUser.setName(name);

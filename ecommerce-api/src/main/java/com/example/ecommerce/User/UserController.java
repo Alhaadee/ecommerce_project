@@ -32,17 +32,17 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AppUser> getUserById(@PathVariable Long id) throws UserNotFoundException {
+    public ResponseEntity<AppUser> getUserById(@PathVariable Long id){
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<AppUser> registerUser(@RequestBody AppUser user) throws InvalidPasswordException, InvalidEmailException {
+    public ResponseEntity<AppUser> registerUser(@RequestBody AppUser user){
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws UserNotFoundException {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -52,8 +52,7 @@ public class UserController {
                                               @RequestParam(required = false) String name,
                                               @RequestParam(required = false) String email,
                                               @RequestParam(required = false) String password,
-                                              @RequestParam(required = false) String dob)
-            throws InvalidPasswordException, UserNotFoundException, InvalidEmailException {
+                                              @RequestParam(required = false) String dob) {
         return new ResponseEntity<>(userService.updateStudent(id, name, email, password, dob), HttpStatus.OK);
     }
 
