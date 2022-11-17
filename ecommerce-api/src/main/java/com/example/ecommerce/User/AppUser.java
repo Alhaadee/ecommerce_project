@@ -1,7 +1,7 @@
 package com.example.ecommerce.User;
 
-import com.example.ecommerce.Products.Product;
-import org.hibernate.annotations.GeneratorType;
+import com.example.ecommerce.Order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity (name = "Users")
+@Entity
+@Table(name = "users")
 public class AppUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +19,9 @@ public class AppUser {
     private String name;
     @Column
     private LocalDate dob;
-//    @Column
-//    private List<Product> productList;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Order> orders;
     @Column
     private String password;
     @Column
@@ -34,7 +36,7 @@ public class AppUser {
         this.dob = dob;
         this.name = name;
         this.password = password;
-//        this.productList = new ArrayList<>();
+        this.orders = new ArrayList<>();
         this.email = email;
     }
 
@@ -70,13 +72,16 @@ public class AppUser {
         this.dob = dob;
     }
 
-//    public List<Product> getProductList() {
-//        return productList;
-//    }
-//
-//    public void setProductList(List<Product> productList) {
-//        this.productList = productList;
-//    }
+    public List<Order> getProductList() {
+        return orders;
+    }
+
+    public void setProductList(List<Order> productList) {
+        this.orders = productList;
+    }
+    public void addToProductList(Order product) {
+        this.orders.add(product);
+    }
 
     public String getPassword() {
         return password;
@@ -92,6 +97,14 @@ public class AppUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

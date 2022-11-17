@@ -35,7 +35,7 @@ public class UserService {
                 .findAppUserByEmail(user.getEmail());
 
         if (userOptional.isPresent()) {
-            throw new InvalidEmailException("This email is already in use.");
+            throw new InvalidEmailException("email " + user.getEmail() + " is already in use.");
         }
         if (user.getEmail() == null && user.getEmail().length() == 0) {
             throw new InvalidEmailException("The email must not be empty.");
@@ -44,7 +44,7 @@ public class UserService {
         if (validatePassword(user.getPassword())) {
             return userRepository.save(user);
         } else {
-            throw new InvalidPasswordException("The password must be between 4-8 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");
+            throw new InvalidPasswordException("The password must be between 4-20 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");
         }
 
 
@@ -102,7 +102,7 @@ public class UserService {
         return m.matches();
     }
 
-    // Todo: add many to many relationship after
+
 
 
 }

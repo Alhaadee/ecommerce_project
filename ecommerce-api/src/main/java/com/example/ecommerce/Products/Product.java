@@ -1,25 +1,46 @@
 package com.example.ecommerce.Products;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.example.ecommerce.Order.Order;
+import com.example.ecommerce.OrderItem.OrderItem;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
-
+    @Column
     private String description;
+    @Column
     private Float price;
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties({"product"})
+    private List<OrderItem> productOrderItemList;
+    @Column
+    private Integer quantity;
 
-    public Product(Long id, String name, String description, Float price) {
-        this.id = id;
+    public Product(String name, String description, Float price, Integer quantity) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.productOrderItemList = new ArrayList<>();
+        this.quantity = quantity;
+    }
+
+
+
+    public List<OrderItem> getProductOrderItemList() {
+        return productOrderItemList;
+    }
+
+    public void setProductOrderItemList(List<OrderItem> productOrderItemList) {
+        this.productOrderItemList = productOrderItemList;
     }
 
     public  Product(){}
@@ -77,4 +98,13 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
 }
