@@ -1,5 +1,8 @@
 package com.example.ecommerce.Components;
 
+import com.example.ecommerce.Products.Product;
+import com.example.ecommerce.Products.ProductRepository;
+import com.example.ecommerce.Products.ProductService;
 import com.example.ecommerce.User.AppUser;
 import com.example.ecommerce.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ProductRepository productRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -24,6 +30,9 @@ public class DataLoader implements ApplicationRunner {
 
         userRepository.save(user1);
         userRepository.save(user2);
+
+        Product product1 = new Product("car","modern car",123.4F,23);
+        productRepository.save(product1);
 
     }
 }
