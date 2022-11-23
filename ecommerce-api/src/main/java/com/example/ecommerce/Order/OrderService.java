@@ -54,6 +54,7 @@ public class OrderService {
         float subtotal = 0;
         for(Long productId: orderDTO.getProductIdList()){
             orderItemList.add(orderItemService.createOrderItem(order.getId(),productId));
+            //.get is not an issue as it will throw exception in previous line.
             subtotal += productRepository.findById(productId).get().getPrice();
         }
         order.setSubTotal(subtotal);
