@@ -2,6 +2,8 @@ package com.example.ecommerce.User;
 
 import com.example.ecommerce.Order.Order;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity @ToString @EqualsAndHashCode
 @Table(name = "users")
 public class AppUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,17 +74,6 @@ public class AppUser {
         this.dob = dob;
     }
 
-    public List<Order> getProductList() {
-        return orders;
-    }
-
-    public void setProductList(List<Order> productList) {
-        this.orders = productList;
-    }
-    public void addToProductList(Order product) {
-        this.orders.add(product);
-    }
-
     public String getPassword() {
         return password;
     }
@@ -107,27 +98,4 @@ public class AppUser {
         this.orders = orders;
     }
 
-    @Override
-    public String toString() {
-        return "AppUser{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dob=" + dob +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AppUser user = (AppUser) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(dob, user.dob) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(age, user.age);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, dob, password, email, age);
-    }
 }

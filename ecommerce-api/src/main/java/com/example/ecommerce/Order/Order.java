@@ -70,6 +70,10 @@ public class Order {
         this.orderItemList = orderItemList;
     }
 
+    public void addToOrderItemList(OrderItem orderItem){
+        this.orderItemList.add(orderItem);
+    }
+
     public LocalDate getOrderDate() {
         return orderDate;
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -32,7 +33,11 @@ public class DataLoader implements ApplicationRunner {
         userRepository.save(user2);
 
         Product product1 = new Product("car","modern car",123.4F,23);
-        productRepository.save(product1);
+        Product product2 = new Product("bike","bmx bike",123.4F,11);
+        Product product3 = new Product("ps5","it is a game console",500F,2);
+        Product product4 = new Product("xbox","another game console",400.4F,5);
+
+        productRepository.saveAll(List.of(product1,product2,product3,product4));
 
     }
 }

@@ -34,16 +34,6 @@ public class ProductController {
         return  new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @PatchMapping(value = "/{id}")
-//    public ResponseEntity<Void> updateProduct(@PathVariable Long id,
-//                                              @RequestParam (required = false) String name,
-//                                              @RequestParam (required = false) String description,
-//                                              @RequestParam (required = false) Float price,
-//                                              @RequestParam (required = false) Integer quantity){
-//        productService.updateProduct(id,name,description,productService,quantity);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-
     @PatchMapping
     public ResponseEntity<Product> updateProduct(@RequestBody UpdateProduct product){
            Product updatedProduct = productService.updateProduct(product);
