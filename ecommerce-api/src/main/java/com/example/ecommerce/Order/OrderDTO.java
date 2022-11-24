@@ -1,11 +1,12 @@
 package com.example.ecommerce.Order;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-@Getter @Setter
+@Data
 public class OrderDTO {
 
     private Long userId;

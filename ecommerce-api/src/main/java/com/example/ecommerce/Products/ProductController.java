@@ -3,9 +3,14 @@ package com.example.ecommerce.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/products")
@@ -27,11 +32,23 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable Long id){
         return new ResponseEntity<>(productService.getProductById(id),HttpStatus.OK);
     }
-
+    // experiment -> returns a string if valid, returns map if errors.
     @PostMapping
-    public ResponseEntity<Void> addProduct(@RequestBody Product product){
+    public ResponseEntity<String> addProduct(@Valid @RequestBody Product product){
         productService.addProduct(product);
-        return  new ResponseEntity<>(HttpStatus.CREATED);
+        return  new ResponseEntity<>("user is valid",HttpStatus.CREATED);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
     @PatchMapping

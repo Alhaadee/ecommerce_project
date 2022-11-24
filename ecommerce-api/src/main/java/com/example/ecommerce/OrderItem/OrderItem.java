@@ -3,6 +3,7 @@ package com.example.ecommerce.OrderItem;
 import com.example.ecommerce.Order.Order;
 import com.example.ecommerce.Products.Product;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import javax.persistence.*;
 
@@ -14,7 +15,8 @@ public class OrderItem {
 
     @ManyToOne (cascade = {CascadeType.ALL})
     @JoinColumn(name = "order_id")
-    @JsonIgnoreProperties({"orderItemList"})
+//    @JsonIgnoreProperties({"orderItemList"})
+    @JsonIncludeProperties(value = {"id"})
     private Order order;
 
 
