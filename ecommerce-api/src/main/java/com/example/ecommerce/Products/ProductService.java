@@ -2,6 +2,7 @@ package com.example.ecommerce.Products;
 
 import com.example.ecommerce.CustomExceptions.InvalidProductException;
 import com.example.ecommerce.CustomExceptions.ProductNotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
+    // todo: this sorting might not be worth the performance hit...
     public List<Product> getAllProducts(){
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
     public Product getProductById(Long id) {

@@ -36,7 +36,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<String> addProduct(@Valid @RequestBody Product product){
         productService.addProduct(product);
-        return  new ResponseEntity<>("user is valid",HttpStatus.CREATED);
+        return  new ResponseEntity<>(null,HttpStatus.CREATED);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

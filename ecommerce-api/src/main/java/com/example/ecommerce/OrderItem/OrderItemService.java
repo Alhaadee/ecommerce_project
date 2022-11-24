@@ -25,9 +25,11 @@ public class OrderItemService {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(orderRepository.findById(orderId).orElseThrow(()-> new RuntimeException("orderId not found")));
         Product targetProduct = productRepository.findById(productId).orElseThrow(()-> new RuntimeException("productId not found"));
+        targetProduct.setQuantity(targetProduct.getQuantity()-1);
         orderItem.setProduct(targetProduct);
         orderItem.setUnit_price(targetProduct.getPrice());
         orderItem.setQuantity(1);
+        productRepository.save(targetProduct);
         return orderItemRepository.save(orderItem);
     }
 
