@@ -26,12 +26,6 @@ public class ProductService {
     }
 
     public void addProduct(Product product) {
-//        if(product.getName() == null
-//                || product.getDescription() == null
-//                || product.getPrice() == null
-//                || product.getQuantity() == null){
-//            throw new InvalidProductException("One or more required fields are empty");
-//        }
         productRepository.save(product);
     }
 

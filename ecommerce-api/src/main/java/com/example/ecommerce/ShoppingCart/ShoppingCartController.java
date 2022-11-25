@@ -2,10 +2,7 @@ package com.example.ecommerce.ShoppingCart;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,12 @@ public class ShoppingCartController {
     @GetMapping(value = "/{userId}")
     public ResponseEntity<List<ShoppingCartItem>> getShoppingCartByUserId(@PathVariable Long userId){
         return new ResponseEntity<>(shoppingCartItemService.getShoppingCartItemsByUserId(userId), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> addShoppingCartItem(@RequestParam Long userId,@RequestParam Long productId,@RequestParam Integer quantity ){
+        shoppingCartItemService.addShoppingCartItem(userId,productId,quantity);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 

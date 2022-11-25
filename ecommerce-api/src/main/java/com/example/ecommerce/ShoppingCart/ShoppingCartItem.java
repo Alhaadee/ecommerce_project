@@ -23,14 +23,11 @@ public class ShoppingCartItem {
     @JsonIgnoreProperties({"shoppingCarts"})
     private Product product;
     @Column
-    private Float price;
-    @Column
     private Integer quantity;
 
     public ShoppingCartItem(AppUser appUser, Product product, Integer quantity){
         this.appUser = appUser;
         this.product = product;
-        this.price = product.getPrice();
         this.quantity = quantity;
     }
 }
