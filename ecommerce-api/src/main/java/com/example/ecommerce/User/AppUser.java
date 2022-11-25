@@ -1,7 +1,9 @@
 package com.example.ecommerce.User;
 
 import com.example.ecommerce.Order.Order;
+import com.example.ecommerce.ShoppingCart.ShoppingCartItem;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -11,7 +13,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity @ToString @EqualsAndHashCode
+@Entity @Data
 @Table(name = "users")
 public class AppUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,9 @@ public class AppUser {
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     private List<Order> orders;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<ShoppingCartItem> shoppingCart;
     @Column
     private String password;
     @Column
@@ -38,6 +43,7 @@ public class AppUser {
         this.name = name;
         this.password = password;
         this.orders = new ArrayList<>();
+        this.shoppingCart = new ArrayList<>();
         this.email = email;
     }
     //custom getter
@@ -49,52 +55,6 @@ public class AppUser {
         this.age = age;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 
 }

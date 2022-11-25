@@ -2,6 +2,7 @@ package com.example.ecommerce.Products;
 
 import com.example.ecommerce.Order.Order;
 import com.example.ecommerce.OrderItem.OrderItem;
+import com.example.ecommerce.ShoppingCart.ShoppingCartItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -26,9 +27,14 @@ public class Product {
     @NotNull(message = "price is mandatory")
     @Positive(message = "price must be greater than 0")
     private Float price;
+    // todo: rename this list. orderedItems?
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<OrderItem> productOrderItemList;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties({"shoppingCart"})
+    private List<ShoppingCartItem> shoppingCartItemList;
     @Column
     @NotNull(message = "quantity is mandatory")
     @PositiveOrZero(message = "quantity must be positive or zero")
