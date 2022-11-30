@@ -4,6 +4,7 @@ import com.example.ecommerce.CustomExceptions.InvalidEmailException;
 import com.example.ecommerce.CustomExceptions.InvalidPasswordException;
 import com.example.ecommerce.CustomExceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -20,9 +21,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -42,6 +46,7 @@ public class UserService {
         }
 
         if (validatePassword(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         } else {
             throw new InvalidPasswordException("The password must be between 4-20 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");

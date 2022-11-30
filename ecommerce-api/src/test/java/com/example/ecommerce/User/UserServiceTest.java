@@ -3,15 +3,13 @@ package com.example.ecommerce.User;
 import com.example.ecommerce.CustomExceptions.InvalidEmailException;
 import com.example.ecommerce.CustomExceptions.InvalidPasswordException;
 import com.example.ecommerce.CustomExceptions.UserNotFoundException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -27,11 +25,12 @@ import static org.mockito.Mockito.verify;
 class UserServiceTest {
 
     @Mock private UserRepository userRepository;
+    @Mock private PasswordEncoder passwordEncoder;
     private UserService underTest;
 
     @BeforeEach
     void setUp(){
-        underTest = new UserService(userRepository);
+        underTest = new UserService(userRepository, passwordEncoder);
     }
 
 

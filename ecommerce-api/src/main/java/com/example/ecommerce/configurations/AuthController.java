@@ -27,7 +27,7 @@ public class AuthController {
     @PostMapping("/token")
     public String token(@RequestBody LoginRequest userLogin){
 //        LOG.debug("Token requested for user: '{}'", userLogin.getUsername());
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getEmail(), userLogin.getPassword()));
         return tokenService.generateToken(authentication);
     }
 
