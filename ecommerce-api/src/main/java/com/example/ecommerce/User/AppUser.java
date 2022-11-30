@@ -35,6 +35,8 @@ public class AppUser {
     @Transient
     private Integer age;
 
+    // todo: add json ignore to password later
+
     public AppUser() {
     }
 

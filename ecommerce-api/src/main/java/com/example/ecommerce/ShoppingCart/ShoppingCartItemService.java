@@ -1,5 +1,6 @@
 package com.example.ecommerce.ShoppingCart;
 
+import com.example.ecommerce.CustomExceptions.NotFoundException;
 import com.example.ecommerce.CustomExceptions.ProductNotFoundException;
 import com.example.ecommerce.CustomExceptions.UserNotFoundException;
 import com.example.ecommerce.Products.Product;
@@ -55,6 +56,10 @@ public class ShoppingCartItemService {
         }
         shoppingCartItemRepository.deleteById(cartItemId);
 
+    }
+
+    public ShoppingCartItem getCartItemById(Long id) {
+        return shoppingCartItemRepository.findById(id).orElseThrow(()-> new NotFoundException("CartItem with id: " + id + " not found."));
     }
 
     //todo add method to edit the quantity - patch request
