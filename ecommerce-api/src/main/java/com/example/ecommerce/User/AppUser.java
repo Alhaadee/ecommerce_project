@@ -34,7 +34,6 @@ public class AppUser implements UserDetails {
     @JsonIgnoreProperties({"user"})
     private List<ShoppingCartItem> shoppingCart;
     @Column
-    @JsonIgnore
     private String password;
     @Column
     private String email;
