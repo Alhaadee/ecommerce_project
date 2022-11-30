@@ -8,6 +8,7 @@ import com.example.ecommerce.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -23,10 +24,13 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        AppUser user1 = new AppUser("John", LocalDate.of(2021, Month.MAY,28),"password","john@email.com");
+        AppUser user1 = new AppUser("John", LocalDate.of(2021, Month.MAY,28), passwordEncoder.encode("Password1"), "john@email.com");
         AppUser user2 = new AppUser("john", LocalDate.of(1999, Month.MAY, 28), "12345", "john123@email.com");
 
         userRepository.save(user1);

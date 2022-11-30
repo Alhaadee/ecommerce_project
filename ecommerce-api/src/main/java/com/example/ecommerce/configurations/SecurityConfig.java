@@ -1,10 +1,10 @@
 package com.example.ecommerce.configurations;
 
+import com.example.ecommerce.Security.Jwks;
 import com.example.ecommerce.User.UserRepository;
-import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
@@ -36,11 +36,10 @@ public class SecurityConfig {
 
     private final UserRepository userRepository;
 
-    private final RsaKeyProperties rsaKeys;
+    private RSAKey rsaKey;
 
-    public SecurityConfig(UserRepository userRepository, RsaKeyProperties rsaKeys) {
+    public SecurityConfig(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.rsaKeys = rsaKeys;
     }
 
     @Bean
@@ -88,18 +87,21 @@ public class SecurityConfig {
     // missing exception handling above
 
     @Bean
-    JwtDecoder jwtDecoder(){
-        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+    public JWKSource<SecurityContext> jwkSource() {
+        rsaKey = Jwks.generateRsa();
+        JWKSet jwkSet = new JWKSet(rsaKey);
+        return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
     }
 
     @Bean
-    JwtEncoder jwtEncoder(){
-        JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey()).build();
-        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+    JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwks) {
         return new NimbusJwtEncoder(jwks);
     }
 
+    @Bean
+    JwtDecoder jwtDecoder() throws JOSEException {
+        return NimbusJwtDecoder.withPublicKey(rsaKey.toRSAPublicKey()).build();
+    }
 
-    // todo: change rsa method to generate after each run.
 
 }
