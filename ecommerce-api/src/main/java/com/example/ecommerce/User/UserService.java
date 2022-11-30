@@ -34,7 +34,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public AppUser addUser(AppUser user) {
+    public void addUser(AppUser user) {
         Optional<AppUser> userOptional = userRepository
                 .findAppUserByEmail(user.getEmail());
 
@@ -47,7 +47,7 @@ public class UserService {
 
         if (validatePassword(user.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return userRepository.save(user);
+            userRepository.save(user);
         } else {
             throw new InvalidPasswordException("The password must be between 4-20 characters and contain one lowercase letter, one uppercase letter, one digit and no spaces.");
         }
