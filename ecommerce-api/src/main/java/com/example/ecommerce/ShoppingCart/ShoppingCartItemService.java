@@ -34,7 +34,7 @@ public class ShoppingCartItemService {
         ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
 
         Optional<AppUser> userOptional = userRepository.findById(userId);
-        shoppingCartItem.setAppUser(userOptional
+        shoppingCartItem.setUser(userOptional
                 .orElseThrow(()-> new UserNotFoundException("user with id: "+ userId + " not found")));
 
         Optional<Product> productOptional = productRepository.findById(productId);

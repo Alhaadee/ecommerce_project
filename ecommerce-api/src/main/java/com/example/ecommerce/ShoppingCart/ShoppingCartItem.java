@@ -17,7 +17,7 @@ public class ShoppingCartItem {
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"shoppingCart"})
-    private AppUser appUser;
+    private AppUser user;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties({"shoppingCarts"})
@@ -25,8 +25,8 @@ public class ShoppingCartItem {
     @Column
     private Integer quantity;
 
-    public ShoppingCartItem(AppUser appUser, Product product, Integer quantity){
-        this.appUser = appUser;
+    public ShoppingCartItem(AppUser user, Product product, Integer quantity){
+        this.user = user;
         this.product = product;
         this.quantity = quantity;
     }
