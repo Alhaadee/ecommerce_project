@@ -4,6 +4,7 @@ import com.example.ecommerce.Order.Order;
 import com.example.ecommerce.ShoppingCart.ShoppingCartItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -33,6 +34,7 @@ public class AppUser implements UserDetails {
     @JsonIgnoreProperties({"user"})
     private List<ShoppingCartItem> shoppingCart;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private String email;
@@ -62,11 +64,13 @@ public class AppUser implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername(){
         return this.email;
     }
