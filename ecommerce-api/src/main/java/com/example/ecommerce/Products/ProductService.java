@@ -1,6 +1,5 @@
 package com.example.ecommerce.Products;
 
-import com.example.ecommerce.CustomExceptions.InvalidProductException;
 import com.example.ecommerce.CustomExceptions.ProductNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Product updateProduct(UpdateProduct updatedProduct) {
+    public Product updateProduct(UpdateProductDTO updatedProduct) {
         Product targetProduct = productRepository.findById(updatedProduct.getId())
                 .orElseThrow(()->new IllegalArgumentException("product with id: " + updatedProduct.getId() + " does not exist"));
 
@@ -40,5 +39,4 @@ public class ProductService {
 
        return productRepository.save(targetProduct);
     }
-    // todo: add a updatedProduct response dto, as the user does not need to see the list of order items?
 }

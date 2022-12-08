@@ -1,4 +1,4 @@
-package com.example.ecommerce.configurations;
+package com.example.ecommerce.Security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

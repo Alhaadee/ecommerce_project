@@ -1,7 +1,7 @@
-package com.example.ecommerce.configurations;
+package com.example.ecommerce.Security;
 
 
-import com.example.ecommerce.User.LoginRequest;
+import com.example.ecommerce.User.LoginRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +25,7 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
     @PostMapping("/token")
-    public String token(@RequestBody LoginRequest userLogin){
+    public String token(@RequestBody LoginRequestDTO userLogin){
 //        LOG.debug("Token requested for user: '{}'", userLogin.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getEmail(), userLogin.getPassword()));
         return tokenService.generateToken(authentication);

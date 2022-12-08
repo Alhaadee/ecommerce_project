@@ -1,4 +1,4 @@
-package com.example.ecommerce.Components;
+package com.example.ecommerce.configurations;
 
 import com.example.ecommerce.Products.Product;
 import com.example.ecommerce.Products.ProductRepository;

@@ -77,7 +77,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(auth-> auth
-                        .mvcMatchers("/token","/api/v1/users").permitAll()
+                        .mvcMatchers("/token","/api/v1/users","/api/v1/products").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

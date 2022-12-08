@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @PatchMapping
-    public ResponseEntity<Product> updateProduct(@RequestBody UpdateProduct product){
+    public ResponseEntity<Product> updateProduct(@RequestBody UpdateProductDTO product){
            Product updatedProduct = productService.updateProduct(product);
             return new ResponseEntity<>(updatedProduct,HttpStatus.OK);
     }
