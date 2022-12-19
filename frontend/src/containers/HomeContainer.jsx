@@ -2,6 +2,7 @@ import React from 'react'
 import {useQuery, useMutation, useQueryClient} from 'react-query'
 import axios from 'axios';
 
+
 function HomeContainer() {
 
   
@@ -11,6 +12,12 @@ function HomeContainer() {
     return axios.get('http://localhost:8080/api/v1/products')
   }
 
+  const fetchFakeProducts = () => {
+    return axios.get('https://fakestoreapi.com/products')
+  }
+
+  const {data: fakeProducts, isLoading, isError, error} = useQuery("fake-products", fetchFakeProducts)
+
   const products = useQuery("products", fetchProducts)
 
   const mutation = useMutation(product => {
@@ -19,21 +26,25 @@ function HomeContainer() {
     onSuccess: ()=>{queryClient.invalidateQueries("products")}
   })
 
-  if(products.isLoading){
+
+
+
+  if(products.isLoading && isLoading){
     return <h1>Loading...</h1>
   }
-  if(products.isError){
+  if(products.isError && isError){
     return <h1>Error: {products.error.message}</h1>
   }
+
   
   return (
     <>
-    <h1>Home Container</h1>
     <ul>
       {products.data?.data.map(product=>(
         <li key={product.id}>{product.name}</li>
       ))}
     </ul>
+  
     <button onClick={() => {mutation.mutate(
               {name: 'new product' ,
                description:"different discreption for the car",
@@ -44,7 +55,12 @@ function HomeContainer() {
     > Create Todo
     </button>
     <button onClick={products.refetch}>fetch Products</button>
-  
+    <h2>fake products list</h2>
+    <ul>
+      {fakeProducts?.data.map(product=>(
+        <li key={product.id}>{product.title}</li>
+      ))}
+    </ul>
     </>
   )
 }
