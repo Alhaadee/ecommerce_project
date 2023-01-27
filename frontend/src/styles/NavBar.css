@@ -5,12 +5,21 @@
     align-items: center;
 }
 
-ul {
+nav ul {
     display: flex;
     gap: 2rem;
     justify-content: space-evenly;
     list-style-type: none;
     
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .search-bar input { 
@@ -19,4 +28,54 @@ ul {
 
 .header-left span {
     margin: 15px;
+}
+.header-left { 
+    display: flex;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: large;
+}
+
+.dropdown > .btn-link:focus,
+.btn-link:hover {
+    color: white;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position:  absolute;
+    left: -100px;
+    width: 100vmax;
+    top: calc(100% + .25rem);
+    background-color: rgb(241, 234, 234);
+    padding: 1rem;
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0,.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    transform: translateY(-10px);
+}
+
+/* style it so its like another bar right below */
+
+.dropdown > .btn-link:focus + .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+
+.dropdown-menu ul {
+    display: flex;
+    justify-content: space-evenly;
 }

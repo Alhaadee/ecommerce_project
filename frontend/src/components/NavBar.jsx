@@ -7,7 +7,19 @@ const NavBar = () => {
     <div className='header'>
     <div className='header-left'>
       <img src="" alt="Placeholder logo" />
-      <span><Link to="/">Shop</Link></span>
+      <div className='dropdown'>
+        <button className='btn-link'>Shop</button>
+        <div className='dropdown-menu'>
+        <ul>
+            <li><Link to="/">T-Shirts</Link></li>
+            <li><Link to="/">Hoodies & Sweatshirts </Link></li>
+            <li><Link to="/">Outerwear </Link></li>
+            <li><Link to="/">Trousers </Link></li>
+            <li><Link to="/">Shirts </Link></li>
+        </ul>
+        </div>
+      </div>
+      
     </div>
    
     <span className='search-bar'> <img src="" alt="magnifying glass" /> <input type="text" placeholder='Search' /></span>
