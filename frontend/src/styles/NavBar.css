@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: antiquewhite;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-evenly;
+    list-style-type: none;
+    
+}
+
+.search-bar input { 
+    width: 400px;
+}
+
+.header-left span {
+    margin: 15px;
+}

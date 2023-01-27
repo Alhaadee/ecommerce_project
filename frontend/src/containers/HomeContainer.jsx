@@ -1,6 +1,7 @@
 import React from 'react'
-import {useQuery, useMutation, useQueryClient} from 'react-query'
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
 import axios from 'axios';
+import ProductList from '../components/ProductList';
 
 
 function HomeContainer() {
@@ -16,9 +17,9 @@ function HomeContainer() {
     return axios.get('https://fakestoreapi.com/products')
   }
 
-  const {data: fakeProducts, isLoading, isError, error} = useQuery("fake-products", fetchFakeProducts)
+  const {data: fakeProducts, isLoading, isError, error} = useQuery(["fake-products"], fetchFakeProducts)
 
-  const products = useQuery("products", fetchProducts)
+  const products = useQuery(["products"], fetchProducts)
 
   const mutation = useMutation(product => {
     return axios.post('http://localhost:8080/api/v1/products', product)
@@ -29,9 +30,7 @@ function HomeContainer() {
 
 
 
-  if(products.isLoading && isLoading){
-    return <h1>Loading...</h1>
-  }
+
   if(products.isError && isError){
     return <h1>Error: {products.error.message}</h1>
   }
@@ -55,14 +54,14 @@ function HomeContainer() {
     > Create Todo
     </button>
     <button onClick={products.refetch}>fetch Products</button>
-    <h2>fake products list</h2>
-    <ul>
-      {fakeProducts?.data.map(product=>(
-        <li key={product.id}>{product.title}</li>
-      ))}
-    </ul>
+    <h2>Popular Items</h2>
+    
+    {isLoading ? <h1>Loading...</h1>:<ProductList fakeProducts={fakeProducts?.data.slice(0,4)}/>}
+    
     </>
   )
+
+  // maybe move the fetch request to the products list
 }
 
 export default HomeContainer

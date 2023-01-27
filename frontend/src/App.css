@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+img {
+  width: 100px;
+}
+
+.popular-products {
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.product-overview {
+  width: 120px;
+}
+
