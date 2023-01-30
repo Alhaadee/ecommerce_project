@@ -1,0 +1,12 @@
+.hero {
+    background-color: lightcoral;
+    text-align: center;
+    height: 80vh;
+    align-items: center;
+
+}
+
+.description{
+    margin: 0px;
+    padding: 40vh;
+}
