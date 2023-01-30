@@ -6,7 +6,7 @@ img {
 .popular-products {
   display: flex;
   justify-content: space-evenly;
-  height: 200vh;
+  height: 600px;
 
 }
 

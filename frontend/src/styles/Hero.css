@@ -1,12 +1,22 @@
+
 .hero {
     background-color: lightcoral;
     text-align: center;
     height: 80vh;
     align-items: center;
+    background-image: url(../assets/airpods-max.jpg);
+    background-position: center;
+    background-size: cover;
 
 }
 
 .description{
-    margin: 0px;
+    position: relative;
+    right: 55vh;
     padding: 40vh;
+}
+
+.hero h2 {
+    font-size: 5vw;
+    margin: 0px;
 }

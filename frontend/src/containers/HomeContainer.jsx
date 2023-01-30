@@ -33,7 +33,7 @@ function HomeContainer() {
     <Hero />
     <h2>Popular Items</h2>
     
-    {isLoading ? <h1>Loading...</h1>:<ProductList fakeProducts={fakeProducts?.data.slice(0,4)}/>}
+    {isLoading ? <h1>Loading...</h1>:<ProductList fakeProducts={fakeProducts?.data.slice(8,12)}/>}
     
     </>
   )
