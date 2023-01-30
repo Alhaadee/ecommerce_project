@@ -2,8 +2,7 @@
 .hero {
     background-color: lightcoral;
     text-align: center;
-    height: 80vh;
-    align-items: center;
+    height: 100vh;
     background-image: url(../assets/airpods-max.jpg);
     background-position: center;
     background-size: cover;

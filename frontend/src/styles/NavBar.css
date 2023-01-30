@@ -1,4 +1,4 @@
-.header {
+header {
     display: flex;
     justify-content: space-between;
     background-color: antiquewhite;
@@ -6,6 +6,10 @@
     position: sticky;
     top: 0px;
     margin-bottom: 0px;
+    z-index: 999;
+    border-bottom: solid;
+    border-bottom-width: 2px;
+    height: 65px;
 }
 
 nav ul {

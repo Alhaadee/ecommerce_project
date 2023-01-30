@@ -2,7 +2,9 @@ import React from 'react'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
 import axios from 'axios';
 import ProductList from '../components/ProductList';
-import Hero from '../components/Hero';
+import '../styles/Hero.css'
+import monitor from '../assets/monitor.jpg'
+
 
 
 function HomeContainer() {
@@ -30,7 +32,24 @@ function HomeContainer() {
   
   return (
     <>
-    <Hero />
+
+    <div className='hero'>
+        <div className='description'>
+            <h2 className='hero-title'>Airpods Max</h2>
+            <button>Find out more</button>
+        </div>
+        
+    </div>
+    <div className='categories-container monitor'>
+      <div className='category-card'>
+        <img src={monitor} alt="monitor" />
+        <h2>Shop Accesories</h2>     
+      </div>
+      <div className='category-card accessory'>
+              <h2 >Shop Monitors</h2> 
+      </div>
+    </div>
+
     <h2>Popular Items</h2>
     
     {isLoading ? <h1>Loading...</h1>:<ProductList fakeProducts={fakeProducts?.data.slice(8,12)}/>}

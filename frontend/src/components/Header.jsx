@@ -6,18 +6,18 @@ const Header = () => {
 
 
   return (
-    <div className='header'>
+    <header >
     <div className='header-left'>
       <img src="" alt="Placeholder logo" />
       <div className='dropdown'>
         <button className='btn-link'>Shop</button>
         <div className='dropdown-menu'>
         <ul>
-            <li><Link to="/">T-Shirts</Link></li>
-            <li><Link to="/">Hoodies & Sweatshirts </Link></li>
-            <li><Link to="/">Outerwear </Link></li>
-            <li><Link to="/">Trousers </Link></li>
-            <li><Link to="/">Shirts </Link></li>
+            <li><Link to="/">Headphones</Link></li>
+            <li><Link to="/">TVs & Monitors</Link></li>
+            <li><Link to="/">Accesories</Link></li>
+            <li><Link to="/">Gaming</Link></li>
+            <li><Link to="/">PC parts</Link></li>
         </ul>
         </div>
       </div>
@@ -33,7 +33,7 @@ const Header = () => {
     </nav>
     
      
-    </div>
+    </header>
   )
 }
 

@@ -3,6 +3,38 @@ img {
   width: 100px;
 }
 
+.categories-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.category-card {
+  text-align: center;
+  height: 50vh;
+  position: relative;
+
+}
+
+.category-card img {
+  height: 50vh;
+  width: auto;
+}
+
+.category-card h2 {
+  position: absolute;
+  top: 0;
+}
+
+.accessory {
+  background-image: url(./assets/accesories.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+
+
+
+
 .popular-products {
   display: flex;
   justify-content: space-evenly;
