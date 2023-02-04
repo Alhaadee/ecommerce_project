@@ -9,25 +9,28 @@ img {
 }
 
 .category-card {
-  text-align: center;
-  height: 50vh;
+  height: 500px;
   position: relative;
 
 }
 
-.category-card img {
-  height: 50vh;
-  width: auto;
-}
 
 .category-card h2 {
   position: absolute;
   top: 0;
 }
 
+
+
 .accessory {
   background-image: url(./assets/accesories.jpg);
   background-position: center;
+  background-size: cover;
+}
+
+.monitor {
+  background-image: url(https://www.asus.com/WebsitesBanner/GB/banners/92cqjoo43y68ahru/92cqjoo43y68ahru-0_0_desktop_1X.jpg?webp);
+  background-position: right center;
   background-size: cover;
 }
 

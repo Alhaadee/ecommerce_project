@@ -39,11 +39,10 @@ function HomeContainer() {
       </div>
       <div className="categories-container monitor">
         <div className="category-card">
-          <img src={monitor} alt="monitor" />
-          <h2>Shop Accesories</h2>
+        <h2>Shop Monitors</h2>
         </div>
         <div className="category-card accessory">
-          <h2>Shop Monitors</h2>
+          <h2>Shop Accesories</h2>
         </div>
       </div>
 
