@@ -49,7 +49,7 @@ a {
     font-size: large;
 }
 
-.dropdown > .btn-link:focus,
+
 .btn-link:hover {
     color: white;
 }
@@ -67,6 +67,9 @@ a {
     padding: 1rem;
     border-radius: .25rem;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0,.3);
+}
+
+.dropdown-menu.inactive {
     opacity: 0;
     pointer-events: none;
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
@@ -75,10 +78,12 @@ a {
 
 /* style it so its like another bar right below */
 
-.dropdown > .btn-link:focus + .dropdown-menu {
-    opacity: 1;
+.dropdown-menu.active {
     transform: translateY(0);
+    opacity: 1;
     pointer-events: auto;
+   
+
 }
 
 

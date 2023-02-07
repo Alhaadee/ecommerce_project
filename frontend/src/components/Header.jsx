@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import "../styles/NavBar.css"
 
@@ -6,25 +6,38 @@ const Header = () => {
   
   const [open, setOpen] = useState(false);
 
-  const handleClick = (e) => {
-    console.log("hello")
+  let menuRef = useRef();
+
+  const toggleDropdown = () => {
+    setOpen(!open)
   }
+
+  useEffect(()=>{
+    let handler = (e)=>{
+      if(!menuRef.current.contains(e.target)){
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler)
+  })
 
   return (
     <header >
     <div className='header-left'>
       <img src="" alt="Placeholder logo" />
-      <div className='dropdown'>
-        <button className='btn-link'>Shop</button>
-        <div className='dropdown-menu' onClick={handleClick}>
-        <ul>
-            <li><Link to="/headphones">Headphones</Link></li>
-            <li><Link to="/">TVs & Monitors</Link></li>
-            <li><Link to="/">Accesories</Link></li>
-            <li><Link to="/">Gaming</Link></li>
-            <li><Link to="/">PC parts</Link></li>
-        </ul>
+      <div className='dropdown' ref={menuRef}>
+        <button className='btn-link' onClick={toggleDropdown}>Shop</button>
+        <div className={`dropdown-menu ${open? 'active' : 'inactive'}`}>
+          <ul>
+              <li><Link to="/headphones" onClick={toggleDropdown}>Headphones</Link></li>
+              <li><Link to="/" onClick={toggleDropdown}>TVs & Monitors</Link></li>
+              <li><Link to="/" onClick={toggleDropdown}>Accesories</Link></li>
+              <li><Link to="/" onClick={toggleDropdown}>Gaming</Link></li>
+              <li><Link to="/" onClick={toggleDropdown}>PC parts</Link></li>
+          </ul>
         </div>
+   
       </div>
       
     </div>
